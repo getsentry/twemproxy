@@ -81,7 +81,7 @@
     +-------------------+------------+---------------------------------------------------------------------------------------------------------------------+
     |      MGET         |    Yes     | MGET key [key ...]                                                                                                  |
     +-------------------+------------+---------------------------------------------------------------------------------------------------------------------+
-    |      MSET         |    Yes*    | MSET key value [key value ...]                                                                                      | 
+    |      MSET         |    Yes*    | MSET key value [key value ...]                                                                                      |
     +-------------------+------------+---------------------------------------------------------------------------------------------------------------------+
     |      MSETNX       |    No      | MSETNX key value [key value ...]                                                                                    |
     +-------------------+------------+---------------------------------------------------------------------------------------------------------------------+
@@ -100,7 +100,7 @@
     |      STRLEN       |    Yes     | STRLEN key                                                                                                          |
     +-------------------+------------+---------------------------------------------------------------------------------------------------------------------+
 
-* MSET support is not Atomic 
+* MSET support is not Atomic
 
 ### Hashes
 
@@ -321,16 +321,17 @@
     +-------------------+------------+---------------------------------------------------------------------------------------------------------------------+
     |     EVALSHA       |    Yes*    | EVALSHA sha1 numkeys key [key ...] arg [arg ...]                                                                    |
     +-------------------+------------+---------------------------------------------------------------------------------------------------------------------+
-    |    SCRIPT EXISTS  |    No      | SCRIPT EXISTS script [script ...]                                                                                   |
+    |    SCRIPT EXISTS  |    YES     | SCRIPT EXISTS script [script ...]                                                                                   |
     +-------------------+------------+---------------------------------------------------------------------------------------------------------------------+
-    |    SCRIPT FLUSH   |    No      | SCRIPT FLUSH                                                                                                        |
+    |    SCRIPT FLUSH   |    YES     | SCRIPT FLUSH                                                                                                        |
     +-------------------+------------+---------------------------------------------------------------------------------------------------------------------+
-    |    SCRIPT KILL    |    No      | SCRIPT KILL                                                                                                         |
+    |    SCRIPT KILL    |    YES     | SCRIPT KILL                                                                                                         |
     +-------------------+------------+---------------------------------------------------------------------------------------------------------------------+
-    |    SCRIPT LOAD    |    No      | SCRIPT LOAD script                                                                                                  |
+    |    SCRIPT LOAD    |    YES     | SCRIPT LOAD script                                                                                                  |
     +-------------------+------------+---------------------------------------------------------------------------------------------------------------------+
 
  * EVAL and EVALSHA support is limited to scripts that take at least 1 key. If multiple keys are used, all keys must hash to the same server. You can ensure this by using the same [hashtag](recommendation.md#hash-tags) for all keys. If you use more than 1 key, the proxy does no checking to verify that all keys hash to the same server, and the entire command is forwarded to the server that the first key hashes to
+ * SCRIPT commands do not get distributed to all servers.
 
 ### Connection
 
@@ -458,6 +459,6 @@
 
 + notice:
     + *MUST* set all redis with a same passwd, and all twemproxy with the same passwd
-    + Length of password should less than 256 
+    + Length of password should less than 256
 
 

@@ -249,6 +249,8 @@ redis_argn(struct msg *r)
     case MSG_REQ_REDIS_ZREVRANGEBYSCORE:
     case MSG_REQ_REDIS_ZUNIONSTORE:
     case MSG_REQ_REDIS_ZSCAN:
+
+    case MSG_REQ_REDIS_SCRIPT:
         return true;
 
     default:
@@ -876,6 +878,11 @@ redis_parse_req(struct msg *r)
 
                 if (str6icmp(m, 'z', 's', 'c', 'o', 'r', 'e')) {
                     r->type = MSG_REQ_REDIS_ZSCORE;
+                    break;
+                }
+
+                if (str6icmp(m, 's', 'c', 'r', 'i', 'p', 't')) {
+                    r->type = MSG_REQ_REDIS_SCRIPT;
                     break;
                 }
 
