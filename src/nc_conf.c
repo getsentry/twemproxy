@@ -896,31 +896,6 @@ conf_validate_tokens(struct conf *cf)
             log_error("conf: document end token (%d) is disallowed", type);
             break;
 
-        case YAML_FLOW_SEQUENCE_START_TOKEN:
-            error = true;
-            log_error("conf: flow sequence start token (%d) is disallowed", type);
-            break;
-
-        case YAML_FLOW_SEQUENCE_END_TOKEN:
-            error = true;
-            log_error("conf: flow sequence end token (%d) is disallowed", type);
-            break;
-
-        case YAML_FLOW_MAPPING_START_TOKEN:
-            error = true;
-            log_error("conf: flow mapping start token (%d) is disallowed", type);
-            break;
-
-        case YAML_FLOW_MAPPING_END_TOKEN:
-            error = true;
-            log_error("conf: flow mapping end token (%d) is disallowed", type);
-            break;
-
-        case YAML_FLOW_ENTRY_TOKEN:
-            error = true;
-            log_error("conf: flow entry token (%d) is disallowed", type);
-            break;
-
         case YAML_ALIAS_TOKEN:
             error = true;
             log_error("conf: alias token (%d) is disallowed", type);
@@ -936,6 +911,11 @@ conf_validate_tokens(struct conf *cf)
             log_error("conf: tag token (%d) is disallowed", type);
             break;
 
+        case YAML_FLOW_SEQUENCE_START_TOKEN:
+        case YAML_FLOW_SEQUENCE_END_TOKEN:
+        case YAML_FLOW_MAPPING_START_TOKEN:
+        case YAML_FLOW_MAPPING_END_TOKEN:
+        case YAML_FLOW_ENTRY_TOKEN:
         case YAML_BLOCK_SEQUENCE_START_TOKEN:
         case YAML_BLOCK_MAPPING_START_TOKEN:
         case YAML_BLOCK_END_TOKEN:
